@@ -57,3 +57,9 @@ def delete_post(post_id):
     db.session.delete(post)
     db.session.commit()
     flash('Your post has been deleted!', 'success')
+
+
+@posts.route("/activity_log")
+@login_required
+def activity_log():
+    return render_template('activity_log.html', title='Activity Log')
