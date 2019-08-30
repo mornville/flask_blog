@@ -2,26 +2,32 @@
 {% include "navbar.html" %}
 
 {% block content %}
-<div class="container">
-  <article class="media content-section">
-    <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
-    <div class="media-body">
-      <div class="article-metadata">
-        <a class="mr-2" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
-        <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
-        {% if post.author == current_user %}
-          <div>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
-            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
-          </div>
-        {% endif %}
-      </div>
-      <h2 class="article-title">{{ post.title }}</h2>
-      <p class="article-content">{{ post.content }}</p>
+<div class="uk-container" style="margin-top:100px">
+    <div class="uk-card uk-card-default uk-width-1-1@m">
+      <div class="uk-card-header">
+            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                <div class="uk-width-auto">
+                    <img class="uk-border-circle" width="40" height="40" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+                </div>
+                <div class="uk-width-expand">
+                <h3 class="uk-card-title uk-margin-remove-bottom"  style="text-transform:capitalize">By  {{ post.author.username }}</h3>
+                    <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ post.date_posted.strftime('%d %B %Y') }}">{{ post.date_posted.strftime('%d %B, %Y') }}</time></p>
+                </div>
+            </div>
+        </div>
+        <div class="uk-card-body">
+          <p style="font-size: 1.3em;color:black;">{{ post.title }}</p>
+          <br>
+            <p>{{ post.content }}</p>
+        </div>
+        <div class="uk-card-footer">
+            <a href="{{ url_for('users.user_posts', username=post.author.username) }}" class="uk-button uk-button-text" style="text-transform: capitalize">Read more from {{ post.author.username }}</a>
+        </div>
+        <!-- <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
+            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button> -->
     </div>
-  </article>
   <!-- Modal -->
-  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <!-- <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -38,6 +44,6 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 {% endblock %}

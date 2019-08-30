@@ -2,29 +2,53 @@
 {% include "navbar.html" %}
 
 {% block content %}
-<h1 class="mb-3">Posts by {{ user.username }} ({{ posts.total }})</h1>
-{% for post in posts.items %}
-    <article class="media content-section">
-      <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
-      <div class="media-body">
-        <div class="article-metadata">
-          <a class="mr-2" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
-          <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+<div class="uk-container" style="margin-top:100px">
+  <div class="row ">
+    <div class="col-lg-12 text-center">
+        Posts by {{ user.username }} ({{ posts.total }})
+
+    </div>
+     <br><br>
+  </div>
+    <div class="row">
+        {% for post in posts.items %}
+        <div class="col-lg-6" style="margin-bottom:10px">
+            <div class="uk-card uk-card-default">
+                <div class="uk-card-header">
+                      <div class="uk-grid-small uk-flex-middle" uk-grid>
+                         
+                          <div class="uk-width-expand">
+                              <p style="font-size: 1.3em;color:black;">{{ post.title }}</p>
+                              <br>
+                              <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ post.date_posted.strftime('%d %B %Y') }}">{{ post.date_posted.strftime('%d %B, %Y') }}</time></p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="uk-card-body">
+                    <br>
+                      <p>{{ post.content }}</p>
+                  </div>
+                  <div class="uk-card-footer">
+                      <a href="{{ url_for('posts.post', post_id=post.id) }}" class="uk-button uk-button-text" style="text-transform: capitalize">Read more</a>
+                  </div>
+                  <!-- <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
+                      <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button> -->
+            </div>
         </div>
-        <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
-        <p class="article-content">{{ post.content }}</p>
-      </div>
-    </article>
-{% endfor %}
-{% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-  {% if page_num %}
-    {% if posts.page == page_num %}
-      <a class="btn btn-info mb-4" href="{{ url_for('users.user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
+        {% endfor %}
+    </div>
+
+    <br><br>
+  {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+      {% if posts.page == page_num %}
+        <a class="btn btn-info mb-4" href="{{ url_for('users.user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
+      {% else %}
+        <a class="btn btn-outline-info mb-4" href="{{ url_for('users.user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
+      {% endif %}
     {% else %}
-      <a class="btn btn-outline-info mb-4" href="{{ url_for('users.user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
+      ...
     {% endif %}
-  {% else %}
-    ...
-  {% endif %}
-{% endfor %}
+  {% endfor %}
+</div>
 {% endblock content %}

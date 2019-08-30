@@ -15,7 +15,7 @@
 
             {% endif %}
 
-            <p style="color:white;font-size:20px;margin-top: 0px !important">16 Users are Currently using SlashGrid!</p>
+            <p style="color:white;font-size:20px;margin-top: 0px !important">{{ users.total }} Users are Currently using SlashGrid!</p>
             
           </div>
         </div>
@@ -47,7 +47,7 @@
                       <div uk-filter-control="[data-color='edu']"><a href="#" style="text-transform: capitalize ">Education(2)</a></div>
                       
                   </div> -->
-                  <h3><b>All Posts(23) </b></h3>
+                  <h3><b>All Posts({{ posts.total }}) </b></h3>
                   <br> 
                   <div style="margin-top: -20px" class="hid">
                       <p><span class="fas fa-info-circle" style="font-size: 1.2em"></span> You can view all the posts in your Feed. But You can only edit Your Posts.</p>
@@ -114,7 +114,7 @@
                                 <br>
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
                                     <div class="uk-width-expand">
-                                      <h3 class="uk-card-title uk-margin-remove-bottom" style="font-size: 1em;text-transform: capitalize"><b> By <a href="{{ url_for('users.user_posts', username=post.author.username) }}" style="color: inherit;text-decoration:underline">{{ post.author.username }}</a> <span class="uk-text-meta">- {{ post.date_posted.strftime('%d %B %Y') }}</span></b></h3>
+                                      <h3 class="uk-card-title uk-margin-remove-bottom" style="font-size: 1em;text-transform: capitalize"><b> By <a href="{{ url_for('users.user_posts', username=post.author.username) }}" style="color: inherit;text-decoration:underline">{{ post.author.username }}</a> <span class="uk-text-meta">- {{ post.date_posted.strftime('%d %B, %Y') }}</span></b></h3>
                                     </div>
                                 </div>
                               </div>
