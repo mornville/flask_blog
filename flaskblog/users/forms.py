@@ -15,7 +15,7 @@ class RegistrationForm(FlaskForm):
     fb_link = StringField('FACEBOOK LINK')
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Sign Up')
+    submit = SubmitField('Join SlashGrid')
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
