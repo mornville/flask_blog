@@ -2,11 +2,10 @@
 {% include "navbar.html" %}
 
 {% block content %}
-<h1>activity Log</h1>
-<div class="row">
-    <div class="col-md-12">
+
         <div class="content-section">
-          <h3>Log</h3>
+          <h3>Activity Log</h3>
+          <br>
           <p class='text-muted'>Logs of all Posts Created by You
             <ul class="list-group">
                 {% for post in current_user.posts %}
@@ -16,8 +15,5 @@
             </ul>
           </p>
         </div>
-      </div>
-    </div>
 
-</div>
 {% endblock %}
