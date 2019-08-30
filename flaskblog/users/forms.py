@@ -12,6 +12,7 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
+    fb_link = StringField('FACEBOOK LINK')
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
@@ -20,6 +21,11 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(username=username.data).first()
         if user:
             raise ValidationError('That username is taken. Please choose a different one.')
+
+    def validate_fb_link(self, fb_link):
+        user = User.query.filter_by(fb_link=fb_link.data).first()
+        if user:
+            raise ValidationError('That Facebook Account is already connected to one Blog Acccount. Try Again.')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
@@ -41,6 +47,7 @@ class UpdateAccountForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+    fb_link = StringField('FACEBOOK LINK')
     submit = SubmitField('Update')
 
     def validate_username(self, username):
