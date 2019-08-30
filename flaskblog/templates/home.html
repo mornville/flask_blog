@@ -94,7 +94,19 @@
                                   </a>
                                   </div>
                                   <div class="col-1" style="padding: 5px !important">
-                                    <b><span class="fas fa-ellipsis-h" style="font-size: 20px"></span></b>
+                                    <div class="uk-inline">
+                                      <b><span class="fas fa-ellipsis-h" style="font-size: 20px"></span></b>
+                                      <div uk-dropdown="pos: left-center">
+                                          <ul class="uk-nav uk-dropdown-nav">
+                                              
+                                              <li><a href="{{ url_for('posts.post', post_id=post.id) }}">View Post &nbsp;<span class="fas fa-share-square"></span> </a></li>
+                                             
+                                              <li class="uk-nav-divider"></li>
+                                              <li><a href="{{ url_for('users.user_posts', username=post.author.username) }}" style="text-transform: capitalize">Other Posts By {{post.author.username}}</a></li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                                   
                                   </div>
                                 </div>
                                 
