@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- UIkit CSS -->
-    
+    <script src="https://kit.fontawesome.com/dc3cac7f57.js"></script>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='uikit-3.1.8/css/uikit.min.css') }}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -23,13 +24,107 @@
   <link href="{{ url_for('static', filename='plugins/slick/slick.css') }}" rel="stylesheet">
   <!-- Slick Carousel Theme -->
   <link href="{{ url_for('static', filename='plugins/slick/slick-theme.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <style>
+   /* varrius effect */
 
-   
+.effect {
+  width: 100%;
+  background-color: #212121;
+}
+.effect h2 {
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 25px;
+  letter-spacing: 3px;
+}
+.effect:nth-child(2) {
+  margin-top: 50px;
+}
+.effect:nth-child(2n+1) {
+  background-color: #fff;
+}
+.effect:nth-child(2n+1) h2 {
+  color: #212121;
+}
+.effect:nth-child(2n) a {
+  color: #fff;
+  border-color: #fff;
+}
+.effect .buttons {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+
+.effect a {
+  text-decoration: none !important;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 20px;
+  font-size: 25px;
+  overflow: hidden;
+  position: relative;
+  color: #212121;
+  border: 2px solid #212121;
+}
+.effect a i {
+  position: relative;
+  z-index: 3;
+}
+.effect a:last-child {
+  margin-right: 0px;
+}
+.effect a:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.effect a i {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+/* varrius effect */
+.effect.varrius a {
+  transition: all 0.2s linear 0s;
+}
+.effect.varrius a:after {
+  content: "";
+  display: block;
+  width: 90%;
+  height: 90%;
+  top: -110%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  position: absolute;
+  background-color: #212121;
+  border-radius: 50%;
+}
+.effect.varrius a:hover {
+  color: #fff;
+}
+.effect.varrius a:hover:after {
+  top: 5%;
+  transition: all 0.2s linear 0s;
+}
+
+
+
+</style>
   
   <!-- CUSTOM CSS -->
   <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
-<script src="https://kit.fontawesome.com/6ded732554.js"></script>
-    {% if title %}
+  {% if title %}
         <title>SlashGrid - {{ title }}</title>
     {% else %}
         <title>SlashGrid</title>
