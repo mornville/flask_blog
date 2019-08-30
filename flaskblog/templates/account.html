@@ -12,6 +12,16 @@
                 {% endif %}
               {% endwith %}
          </div>
+         <div class="col-lg-12">
+                <div class="row">
+                        <div class="col-lg-10 text-right">
+                            <a href="{{ url_for('posts.activity_log') }}">
+                                    <button class="uk-button uk-button-default"><span class="fas fa-history"></span> &nbsp; &nbsp;Activity Log</button>
+
+                            </a>
+                        </div>
+                </div>
+         </div>
         <div class="col-lg-12">
                 
                 <img class="rounded-circle account-img" width="150" src="{{ image_file }}">
