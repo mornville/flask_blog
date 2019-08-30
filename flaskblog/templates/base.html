@@ -4,52 +4,63 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
+    <!-- UIkit CSS -->
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='uikit-3.1.8/css/uikit.min.css') }}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <script src="{{ url_for('static', filename='uikit-3.1.8/js/uikit.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='uikit-3.1.8/js/uikit-icons.min.js') }}"></script>
+    <!-- Bootstrap CSS -->
 
+
+     <!-- PLUGINS CSS STYLE -->
+  <!-- Bootstrap -->
+  <link href="{{ url_for('static', filename='plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- Themefisher Font -->  
+  <link href="{{ url_for('static', filename='plugins/themefisher-font/style.css') }}" rel="stylesheet">
+  <!-- Slick Carousel -->
+  <link href="{{ url_for('static', filename='plugins/slick/slick.css') }}" rel="stylesheet">
+  <!-- Slick Carousel Theme -->
+  <link href="{{ url_for('static', filename='plugins/slick/slick-theme.css') }}" rel="stylesheet">
+
+   
+  
+  <!-- CUSTOM CSS -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+<script src="https://kit.fontawesome.com/6ded732554.js"></script>
     {% if title %}
         <title>SlashGrid - {{ title }}</title>
     {% else %}
         <title>SlashGrid</title>
     {% endif %}
     </head>
-    <body>
+    <body class="uk-margin-large-top">
+      
         
-            <main role="main" class="container">
-                    <div class="row">
-                      <div class="col-md-8">
-                        {% with messages = get_flashed_messages(with_categories=true) %}
-                          {% if messages %}
-                            {% for category, message in messages %}
-                              <div class="alert alert-{{ category }}">{{ message }}</div>
-                            {% endfor %}
-                          {% endif %}
-                        {% endwith %}
+            <main role="main" class="">
+                    <div class="">
+                      <div class="">
+                        
                         {% block content %}{% endblock %}
                       </div>
-                      <div class="col-md-4">
-                        <div class="content-section">
-                          <h3>Donate</h3>
-                          <p class='text-muted'>You can put any information here you'd like.
-                            <ul class="list-group">
-                              <li class="list-group-item list-group-item-light">Latest Posts</li>
-                              <li class="list-group-item list-group-item-light">Announcements</li>
-                              <li class="list-group-item list-group-item-light">Calendars</li>
-                              <li class="list-group-item list-group-item-light">etc</li>
-                            </ul>
-                          </p>
-                        </div>
-                      </div>
+                      
                     </div>
             </main>
 
-         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <!-- JAVASCRIPTS -->
+  
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI14J_PNWVd-m0gnUBkjmhoQyNyd7nllA" async defer></script>
+
+  <script src="{{ url_for('static', filename='plugins/jquery/jquery.js') }}"></script>
+  <script src="{{ url_for('static', filename='plugins/popper/popper.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='plugins/waypoints/jquery.waypoints.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='plugins/slick/slick.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='plugins/smoothscroll/SmoothScroll.min.js') }}"></script>
+
+ 
 </body>
 </html>
 

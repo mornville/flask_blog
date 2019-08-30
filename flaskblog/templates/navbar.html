@@ -1,33 +1,33 @@
-<header class="site-header">
-    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-      <div class="container">
-        <a class="navbar-brand mr-4" href="/">SlashGrid</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+<nav class="navbar main-nav  fixed-top navbar-expand-lg" style="background:#272727 !important">
+    <div class="container">
+        <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='images/download2.png') }}" alt="logo" width="150" style="padding:10px"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="tf-ion-android-menu"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarToggle">
-          <div class="navbar-nav mr-auto">
-            
-          </div>
-          <!-- Navbar Right Side -->
-          <div class="navbar-nav">
-            {% if current_user.is_authenticated %}
-            <a class="nav-item nav-link" href="{{ url_for('users.account') }}" style="text-transform: capitalize"> 
-              <img class="rounded-circle" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" width="30">
-              &nbsp;{{ current_user.username }}
-            </a>
-            <a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a>
-            <a class="nav-item nav-link" href="{{ url_for('posts.activity_log') }}">Activity Log</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          {% if current_user.is_authenticated %}
+          <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('users.account') }}" style="text-transform: capitalize;color:white;font-size:1.3em"> 
+                  <img class="rounded-circle" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" width="30">
+                  &nbsp;{{ current_user.username }}
+              </a> 
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('users.logout') }}" style="color:white;font-size:1.3em">Logout</a>
 
-           
+          </li>
+          
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link scrollTo" href="{{ url_for('users.register') }}" style="color:white;font-size:1.3em"><b>Create Account.</b></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('users.login') }}" style="color:white;font-size:1.3em"><b>Login</b></a>
 
-            <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
-            {% else %}
-            <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
-            <a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a>
-            {% endif %}
-          </div>
+          </li>
+         {% endif %}
+        </ul>
         </div>
-      </div>
-    </nav>
-</header>
+    </div>
+</nav>

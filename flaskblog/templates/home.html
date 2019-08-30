@@ -2,28 +2,144 @@
 {% include "navbar.html" %}
 
 {% block content %}
-    {% for post in posts.items %}
-        <article class="media content-section">
-          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="{{ url_for('users.user_posts', username=post.author.username) }}" style="text-transform: capitalize;text-decoration:none;">{{ post.author.username }}</a>
-              <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
-            </div>
-            <h4><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}" style="text-transform: uppercase">{{ post.title }}</a></h4>
-            <p class="article-content">{{ post.content }}</p>
+<section class="banner bg-1" id="home" style="height: 50vh !important">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 align-self-center">
+          <!-- Contents -->
+          <div class="content-block">
+            {% if current_user.is_authenticated %}
+            <h3 style="color:white;font-weight: 700;text-transform: capitalize">Hey {{ current_user.username }}</h3>
+            {% else %}
+            <h3 style="color:white;font-weight: 700">Join Today!</h3>
+
+            {% endif %}
+
+            <p style="color:white;font-size:20px;margin-top: 0px !important">16 Users are Currently using SlashGrid!</p>
+            
           </div>
-        </article>
-    {% endfor %}
-    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-      {% if page_num %}
-        {% if posts.page == page_num %}
-          <a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
-        {% else %}
-          <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
-        {% endif %}
-      {% else %}
-        ...
-      {% endif %}
-    {% endfor %}
+        </div>
+        
+      </div>
+    </div>
+  </section>
+  <section class="about section bg-2" id="about"  uk-filter="target: .js-filter">
+    
+      <div class="container" style="margin-top:-40px !important">
+        <div class="row">
+          <div class="col-lg-12">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+           
+            <br>
+            <div class="row" style="padding: 20px">
+              <div class="col-lg-8">
+                  <!-- <div class="uk-subnav" >
+                      <div class="uk-active" uk-filter-control><a href="#" style="text-transform: capitalize ">All Posts(10)</a></div>
+                      <div uk-filter-control="[data-color='event']"><a href="#" style="text-transform: capitalize ">Events(5)</a></div>
+                      <div uk-filter-control="[data-color='jobs']"><a href="#" style="text-transform: capitalize ">Jobs(3)</a></div>
+                      <div uk-filter-control="[data-color='arti']"><a href="#" style="text-transform: capitalize ">Articles(2)</a></div>
+                      <div uk-filter-control="[data-color='edu']"><a href="#" style="text-transform: capitalize ">Education(2)</a></div>
+                      
+                  </div> -->
+                  <h3><b>All Posts(23) </b></h3>
+                  <br> 
+                  <div style="margin-top: -20px" class="hid">
+                      <p><span class="fas fa-info-circle" style="font-size: 1.2em"></span> You can view all the posts in your Feed. But You can only edit Your Posts.</p>
+                  </div>
+              </div>
+              <div class="col-lg-4" >
+                  <a href="{{ url_for('posts.new_post') }}">
+                  <div class="uk-button-group uk-margin-medium-left">
+                      <button class="uk-button uk-button-secondary uk-button-small" style="text-transform: capitalize !important"><span class="fas fa-edit"></span> Write a Post </button>
+                  </div>
+                </a>
+              
+              </div>
+            </div>
+          </div>
+        </div>
+    
+    
+        <div class="row">
+          <div class="col-lg-8 col-xs-12">
+              <div class="uk-child-width-1-1@s uk-grid-match" uk-grid> 
+              <div>
+    
+                <div class="js-filter">
+                    {% for post in posts.items %}
+                      <div data-color="event" style="margin-bottom:20px">
+                          <div>
+                            <!-- Testimonial Carosel -->
+                            <div class="uk-card uk-card-default">
+                              <div class="uk-card-media-top">
+                                <div class="bg-28" style="height: 200px">
+                                  
+                                </div>
+                                <p style="padding: 20px;margin-top:0px !important" ><span class="fas fa-edit"></span> Article</p>
+                              </div>
+                              <div class="uk-card-body" style="padding: 20px !important;margin-top:-30px !important;text-align: left!important;width: 100%;">
+                                <div class="row"> 
+                                  <div class="col-11">
+                                    <a href="{{ url_for('posts.post', post_id=post.id) }}">
+                                    <h3 class="uk-card-title content" style="text-align: left !important">
+                                       <b>{{ post.title }}</b>
+                                     
+                                    </h3>
+                                  </a>
+                                  </div>
+                                  <div class="col-1" style="padding: 5px !important">
+                                    <b><span class="fas fa-ellipsis-h" style="font-size: 20px"></span></b>
+                                  </div>
+                                </div>
+                                
+                                <p style="margin-top: -10px">{{ post.content }}</p>
+                                <br>
+                                <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                    <div class="uk-width-expand">
+                                      <h3 class="uk-card-title uk-margin-remove-bottom" style="font-size: 1em;text-transform: capitalize"><b> By <a href="{{ url_for('users.user_posts', username=post.author.username) }}" style="color: inherit;text-decoration:underline">{{ post.author.username }}</a> <span class="uk-text-meta">- {{ post.date_posted.strftime('%d %B %Y') }}</span></b></h3>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>							
+                      </div>
+                    {% endfor %}
+                    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+
+                    {% if page_num %}
+                      {% if posts.page == page_num %}
+                        <a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+                      {% else %}
+                        <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+                      {% endif %}
+                    {% else %}
+                      ...
+                    {% endif %}
+                  {% endfor %}
+ 
+                </div>
+              
+              </div>
+            </div>
+          
+          </div>
+       
+          
+        </div>
+        
+      </div>
+    </section>
+    
+      
 {% endblock %}
+
+
+
+
+
