@@ -8,8 +8,9 @@ main = Blueprint('main', __name__)
 @main.route("/home")
 def home():
     page = request.args.get('page', 1, type=int)
+    page2 = request.args.get('page2', 1, type=int)
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    users = User.query.paginate(page=page)
+    users = User.query.paginate(page=page2)
     return render_template('home.html', posts=posts, users=users)
 
 
