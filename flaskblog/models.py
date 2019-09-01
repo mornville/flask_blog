@@ -18,6 +18,8 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     fb_link = db.Column(db.String(120), unique=True, nullable=True)
     posts = db.relationship('Post', backref='author', lazy=True)
+    comment = db.relationship('Comments', backref='author', lazy=True)
+
     
 
     def get_reset_token(self, expires_sec=1800):
@@ -43,6 +45,8 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    comment = db.relationship('Comments', backref='post', lazy=True)
+
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
@@ -51,6 +55,8 @@ class Comments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f"Post('{self.title}', '{self.date_posted}')"
+        return f"Comments('{self.title}', '{self.date_posted}')"
