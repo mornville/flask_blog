@@ -154,6 +154,74 @@
   <script src="{{ url_for('static', filename='plugins/waypoints/jquery.waypoints.min.js') }}"></script>
   <script src="{{ url_for('static', filename='plugins/slick/slick.min.js') }}"></script>
   <script src="{{ url_for('static', filename='plugins/smoothscroll/SmoothScroll.min.js') }}"></script>
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        var arr = document.querySelectorAll(".desc");
+        var arr_mob = document.querySelectorAll(".desc_mob");
+        var name = document.querySelectorAll(".name");
+
+        truncate_all(arr, 30);
+        truncate_all(arr_mob, 20);
+        truncate_all(name, 27);
+
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+            var arr2 = document.querySelectorAll(".user_para");
+            truncate_all_desc(arr2, 300);
+
+
+        }
+    });
+
+    truncate_all = function (arr, num) {
+        for (i = 0; i < arr.length; i++) {
+            arr[i].innerHTML = text_truncate(arr[i].innerHTML, num)
+        }
+
+    };
+
+    text_truncate = function (str, length, ending) {
+        if (length == null) {
+            length = 100;
+        }
+        if (ending == null) {
+            ending = '...';
+        }
+        if (str.length > length) {
+            return str.substring(0, length - ending.length) + ending;
+        } else {
+            return str;
+        }
+    };
+    var orginal_arr;
+    truncate_all_desc = function (arr, num) {
+
+        for (i = 0; i < arr.length; i++) {
+            arr[i].innerHTML = text_truncate_desc(arr[i].innerHTML, num);
+
+        }
+    };
+    text_truncate_desc = function (str, length, ending) {
+        if (length == null) {
+            length = 100;
+        }
+        if (ending == null) {
+            ending = '<a href="javascript:void(0)" onclick="more_desc()" id="more">&nbsp;<b> More...</b></a>'
+        }
+        if (str.length > length) {
+            return str.substring(0, length - ending.length) + ending;
+        } else {
+            return str;
+        }
+    };
+    var more = document.getElementById('more');
+
+    function more_desc() {
+        console.log(orginal_arr)
+    }
+
+</script>
 
  
 </body>

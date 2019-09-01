@@ -5,6 +5,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flaskblog.config import Config
 
+app = Flask(__name__)
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -15,7 +16,6 @@ mail = Mail()
 
 
 def create_app(config_class=Config):
-    app = Flask(__name__)
     app.config.from_object(Config)
 
     db.init_app(app)
@@ -31,6 +31,9 @@ def create_app(config_class=Config):
     app.register_blueprint(posts)
     app.register_blueprint(main)
     app.register_blueprint(errors)
+
+    with app.app_context():
+        db.create_all()
 
 
     return app
