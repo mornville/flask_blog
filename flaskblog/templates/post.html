@@ -10,11 +10,8 @@
                     <img class="uk-border-circle" width="40" height="40" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
                 </div>
                 <div class="uk-width-expand">
-                <h3 class="uk-card-title uk-margin-remove-bottom"  style="text-transform:capitalize">By  {{ post.author.username }} cooment:
-                {% for comment in comments %} 
-                {{ comment.author.username }} - {{ comment.title }}
-                <br>
-                {% endfor %}
+                <h3 class="uk-card-title uk-margin-remove-bottom"  style="text-transform:capitalize"> {{ post.author.username }}
+               
                 </h3>
                     <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ post.date_posted.strftime('%d %B %Y') }}">{{ post.date_posted.strftime('%d %B, %Y') }}</time></p>
                 </div>
@@ -24,6 +21,44 @@
           <p style="font-size: 1.3em;color:black;">{{ post.title }}</p>
           <br>
             <p>{{ post.content }}</p>
+            <br>
+            <p>
+              <form class="login100-form validate-form" method="POST" action="" >
+        
+
+                <span class="login100-form-title p-b-26">
+                  Write Your comment Here..
+            	</span>
+                
+                
+                          <div class="row text-center">
+                            {{ form.hidden_tag() }}
+                          <fieldset class="form-group col-lg-6">
+                              <div class="form-group">
+                                  {% if form.title.errors %}
+                                      {{ form.title(class="form-control form-control-lg is-invalid") }}
+                                      <div class="invalid-feedback">
+                                          {% for error in form.title.errors %}
+                                              <span>{{ error }}</span>
+                                          {% endfor %}
+                                      </div>
+                                  {% else %}
+                                      {{ form.title(class="form-control form-control-lg") }}
+                                  {% endif %}
+                              </div>
+                          
+                          </fieldset>
+                          <div class="form-group col-lg-6 text-left">
+                              {{ form.submit(class="uk-button uk-button-secondary") }}
+                          </div>
+                          </div>
+                              
+              </form>
+              {% for comment in comments %} 
+              {{ comment.author.username }} - {{ comment.title }} - {{ comment.date_posted.strftime('%d/%m/%Y') }}
+              <br>
+              {% endfor %}
+            </p>
         </div>
         <div class="uk-card-footer">
             <a href="{{ url_for('users.user_posts', username=post.author.username) }}" class="uk-button uk-button-text" style="text-transform: capitalize">Read more from {{ post.author.username }}</a>
@@ -51,40 +86,6 @@
     </div>
   </div> -->
 </div>
-<div class="limiter desk row" >
-  <div class="container-login100">
-    <div class="wrap-login101 col-lg-8">
-      <form class="login100-form validate-form" method="POST" action="" >
-        
 
-        <span class="login100-form-title p-b-26">
-{{legend}}					</span>
-        
-        
-                  {{ form.hidden_tag() }}
-                  <fieldset class="form-group">
-                      <div class="form-group">
-                          {{ form.title.label(class="form-control-label") }}
-                          {% if form.title.errors %}
-                              {{ form.title(class="form-control form-control-lg is-invalid") }}
-                              <div class="invalid-feedback">
-                                  {% for error in form.title.errors %}
-                                      <span>{{ error }}</span>
-                                  {% endfor %}
-                              </div>
-                          {% else %}
-                              {{ form.title(class="form-control form-control-lg") }}
-                          {% endif %}
-                      </div>
-                  
-                  </fieldset>
-                  <div class="form-group">
-                      {{ form.submit(class="uk-button uk-button-secondary") }}
-                  </div>
-                      
-      </form>
-    </div>
-  </div>
-</div>
 
 {% endblock %}
