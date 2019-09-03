@@ -21,13 +21,21 @@ def new_post():
     return render_template('create_post.html', title='New Post',
                            form=form, legend='New Post')
 
-
-@posts.route("/post/<int:post_id>")
+@posts.route("/post/<int:post_id>", methods=['GET', 'POST'])
+@login_required
 def post(post_id):
     comment = Comments.query.filter_by(post_id=post_id)
+    form = CommentsForm()
+    if form.validate_on_submit():
+        post = Post.query.get(post_id)
+        comment = Comments(title=form.title.data, author= current_user, post=post)
+        db.session.add(comment)
+        db.session.commit()
+        return redirect(url_for('posts.post', post_id=post.id))
+
     post = Post.query.get_or_404(post_id)
 
-    return render_template('post.html', title=post.title, post=post, comments=comment)
+    return render_template('post.html', title=post.title, post=post, comments=comment, form=form)
 
 
 @posts.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
@@ -72,13 +80,4 @@ def activity_log():
 @login_required
 def new_comment():
     form = CommentsForm()
-    if form.validate_on_submit():
-        post = Post.query.get(1)
-        comment = Comments(title=form.title.data, author= current_user, post=post)
-        db.session.add(comment)
-        db.session.commit()
-        flash('Your comment has been created!', 'success')
-        return redirect(url_for('main.home'))
-    return render_template('new_comment.html', title='New comment',
-                           form=form, legend='New Comment')
-
+    
