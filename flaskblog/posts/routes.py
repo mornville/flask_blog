@@ -2,7 +2,7 @@ from flask import (render_template, url_for, flash,
                    redirect, request, abort, Blueprint)
 from flask_login import current_user, login_required
 from flaskblog import db
-from flaskblog.models import Post
+from flaskblog.models import Post, Comments
 from flaskblog.posts.forms import PostForm
 
 posts = Blueprint('posts', __name__)
@@ -24,8 +24,10 @@ def new_post():
 
 @posts.route("/post/<int:post_id>")
 def post(post_id):
+    comment = Comments.query.filter_by(post_id=post_id)
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, post=post)
+
+    return render_template('post.html', title=post.title, post=post, comments=comment)
 
 
 @posts.route("/post/<int:post_id>/update", methods=['GET', 'POST'])

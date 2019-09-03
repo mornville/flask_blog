@@ -10,7 +10,12 @@
                     <img class="uk-border-circle" width="40" height="40" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
                 </div>
                 <div class="uk-width-expand">
-                <h3 class="uk-card-title uk-margin-remove-bottom"  style="text-transform:capitalize">By  {{ post.author.username }}</h3>
+                <h3 class="uk-card-title uk-margin-remove-bottom"  style="text-transform:capitalize">By  {{ post.author.username }} cooment:
+                {% for comment in comments %}
+                {{ comment.title }}
+                <br>
+                {% endfor %}
+                </h3>
                     <p class="uk-text-meta uk-margin-remove-top"><time datetime="{{ post.date_posted.strftime('%d %B %Y') }}">{{ post.date_posted.strftime('%d %B, %Y') }}</time></p>
                 </div>
             </div>
@@ -46,4 +51,5 @@
     </div>
   </div> -->
 </div>
+
 {% endblock %}
