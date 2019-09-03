@@ -3,7 +3,7 @@ from flask import (render_template, url_for, flash,
 from flask_login import current_user, login_required
 from flaskblog import db
 from flaskblog.models import Post, Comments
-from flaskblog.posts.forms import PostForm
+from flaskblog.posts.forms import PostForm, CommentsForm
 
 posts = Blueprint('posts', __name__)
 
@@ -65,3 +65,20 @@ def delete_post(post_id):
 @login_required
 def activity_log():
     return render_template('activity_log.html', title='Activity Log')
+
+
+
+@posts.route("/new_comment", methods=['GET', 'POST'])
+@login_required
+def new_comment():
+    form = CommentsForm()
+    if form.validate_on_submit():
+        post = Post.query.get(1)
+        comment = Comments(title=form.title.data, author= current_user, post=post)
+        db.session.add(comment)
+        db.session.commit()
+        flash('Your comment has been created!', 'success')
+        return redirect(url_for('main.home'))
+    return render_template('new_comment.html', title='New comment',
+                           form=form, legend='New Comment')
+
