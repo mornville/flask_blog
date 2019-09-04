@@ -72,7 +72,8 @@ def delete_post(post_id):
 @posts.route("/activity_log")
 @login_required
 def activity_log():
-    return render_template('activity_log.html', title='Activity Log')
+    comments = Comments.query.filter_by(user_id=current_user.id)
+    return render_template('activity_log.html', title='Activity Log', comments = comments)
 
 
 
