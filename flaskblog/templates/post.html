@@ -55,7 +55,11 @@
                               
               </form>
               {% for comment in comments %} 
-              {{ comment.author.username }} - {{ comment.title }} - {{ comment.date_posted.strftime('%d/%m/%Y') }}
+              <a href=""> <b style="text-transform: capitalize;color: inherit;font-size: 1.2em">
+                  <img class="uk-border-circle" width="20" height="20" src="{{ url_for('static', filename='profile_pics/' + comment.author.image_file) }}">
+
+                  {{ comment.author.username }}</b> </a> {{ comment.title }} - {{ comment.date_posted.strftime('%d/%m/%Y') }}
+              <br>
               <br>
               {% endfor %}
             </p>

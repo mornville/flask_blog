@@ -76,8 +76,6 @@ def activity_log():
 
 
 
-@posts.route("/new_comment", methods=['GET', 'POST'])
-@login_required
-def new_comment():
-    form = CommentsForm()
+
+
     

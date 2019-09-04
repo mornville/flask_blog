@@ -73,6 +73,7 @@
     
                 <div class="js-filter">
                     {% for post in posts.items %}
+                  
                       <div data-color="event" style="margin-bottom:20px">
                           <div>
                             <!-- Testimonial Carosel -->
@@ -116,6 +117,7 @@
                                     <div class="uk-width-expand">
                                       <h3 class="uk-card-title uk-margin-remove-bottom" style="font-size: 1em;text-transform: capitalize"><b> By <a href="{{ url_for('users.user_posts', username=post.author.username) }}" style="color: inherit;text-decoration:underline">{{ post.author.username }}</a> <span class="uk-text-meta">- {{ post.date_posted.strftime('%d %B, %Y') }}</span></b></h3>
                                     </div>
+                                      <a href="{{ url_for('posts.post', post_id=post.id) }}"><p class="uk-text-meta"><span class="fas fa-comment-dots"></span> Comments</p></a> 
                                 </div>
                               </div>
                             </div>
