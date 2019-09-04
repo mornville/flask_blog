@@ -77,7 +77,7 @@
 
                         <a href="{{ url_for('posts.new_post') }}"><li class="list-group-item list-group-item-light"><span class="fas fa-newspaper"></span> &nbsp; New Posts</li></a>
                         {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('posts.new_post') }}"><li class="list-group-item list-group-item-light"><span class="fas fa-users"></span> &nbsp; Follow Requests</li></a>
+                        <!-- <a href="{{ url_for('posts.new_post') }}"><li class="list-group-item list-group-item-light"><span class="fas fa-users"></span> &nbsp; Follow Requests</li></a> -->
 
                         <a href="{{ url_for('posts.activity_log') }}"><li class="list-group-item list-group-item-light"><span class="fas fa-history"></span> &nbsp; Activity</li></a>
                         {% endif %}                      
@@ -121,7 +121,10 @@
                                           <ul class="uk-nav uk-dropdown-nav">
                                               
                                               <li><a href="{{ url_for('posts.post', post_id=post.id) }}">View Post &nbsp;<span class="fas fa-share-square"></span> </a></li>
-                                             
+                                              {% if current_user.username == post.author.username %}
+                                              <li><a href="{{ url_for('posts.update_post', post_id=post.id) }}">Update Post &nbsp;<span class="fas fa-share-square"></span> </a></li>
+
+                                              {% endif %}
                                               <li class="uk-nav-divider"></li>
                                               <li><a href="{{ url_for('users.user_posts', username=post.author.username) }}" style="text-transform: capitalize">Other Posts By {{post.author.username}}</a></li>
                                           </ul>
