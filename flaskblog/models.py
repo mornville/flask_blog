@@ -20,6 +20,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', backref='author', lazy=True)
     comment = db.relationship('Comments', backref='author', lazy=True)
 
+
     
 
     def get_reset_token(self, expires_sec=1800):
@@ -60,3 +61,4 @@ class Comments(db.Model):
 
     def __repr__(self):
         return f"Comments('{self.title}', '{self.date_posted}')"
+

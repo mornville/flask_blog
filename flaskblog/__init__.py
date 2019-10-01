@@ -4,10 +4,12 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 from flaskblog.config import Config
-
+from flask_migrate import Migrate
 app = Flask(__name__)
 
 db = SQLAlchemy()
+migrate = Migrate(app, db)
+
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
